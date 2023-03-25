@@ -34,7 +34,7 @@ create table University(
 	private01 varchar,
     phd_granting varchar,
 	divisions varchar,
-	specialized varchar,
+	specialized varchar
 );
 
 create table Enrollment_stats(
