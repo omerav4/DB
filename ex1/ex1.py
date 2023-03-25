@@ -42,7 +42,7 @@ def process_row(row):
         if table != "Enrollment_stats" and not is_last_row_of_university:
             continue
         current_row = [row[col] for col in columns_in_enrollment_table
-                       if columns_in_enrollment_table[col] in columns_in_enrollment_table[table]]
+                       if columns_in_enrollment_table[col] in created_tables[table]]
         enrollment_outwriter[table].writerow(current_row)
 
 
