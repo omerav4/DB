@@ -32,7 +32,7 @@ created_tables = {"Country": ["countrycode", "country", "region", "incomegroup"]
 enrollment_outfile, enrollment_outwriter = {}, {}
 for table in all_tables:
     enrollment_outfile[table] = open(f"{table}.csv", 'w', encoding='UTF8')
-    enrollment_outwriter[table] = csv.writer(enrollment_outfile, delimiter=",", quoting=csv.QUOTE_MINIMAL)
+    enrollment_outwriter[table] = csv.writer(enrollment_outfile[table], delimiter=",", quoting=csv.QUOTE_MINIMAL)
 
 
 # splits row into the different csv table files
@@ -53,7 +53,7 @@ def process_file():
             reader = csv.reader(TextIOWrapper(infile, 'utf-8'))
             for row in reader:
                 process_row(row)    # each row is a list of string
-                enrollment_outwriter.writerow(row)
+                enrollment_outwriter['enrollment'].writerow(row)
 
 
 # return the list of all tables
