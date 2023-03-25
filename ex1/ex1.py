@@ -29,7 +29,7 @@ created_tables = {"Country": ["countrycode", "country", "region", "incomegroup"]
                          "Located_at": ["iau_id1", "countrycode", "latitude", "longitude"]}
 
 # opens files.
-enrollment_outfile, enrollment_outwriter = {}
+enrollment_outfile, enrollment_outwriter = {}, {}
 for table in all_tables:
     enrollment_outfile[table] = open(f"{table}.csv", 'w', encoding='UTF8')
     enrollment_outwriter[table] = csv.writer(enrollment_outfile, delimiter=",", quoting=csv.QUOTE_MINIMAL)
