@@ -29,10 +29,11 @@ created_tables = {"Country": ["countrycode", "country", "region", "incomegroup"]
                          "Located_at": ["iau_id1", "countrycode", "latitude", "longitude"]}
 
 # opens files.
-enrollment_outfile, enrollment_outwriter = {}, {}
+outfiles, outwriters, rows_sets = {}, {}, {}
 for table in all_tables:
-    enrollment_outfile[table] = open(f"{table}.csv", 'w', encoding='UTF8')
-    enrollment_outwriter[table] = csv.writer(enrollment_outfile[table], delimiter=",", quoting=csv.QUOTE_MINIMAL)
+    outfiles[table] = open(f"{table}.csv", 'w', encoding='UTF8')
+    outwriters[table] = csv.writer(outfiles[table], delimiter=",", quoting=csv.QUOTE_MINIMAL)
+    rows_sets[table] = {}
 
 
 # splits row into the different csv table files
@@ -43,7 +44,8 @@ def process_row(row):
             continue
         current_row = [row[col] for col in columns_in_enrollment_table
                        if columns_in_enrollment_table[col] in created_tables[table]]
-        enrollment_outwriter[table].writerow(current_row)
+        if current_row not in rows_sets[table]:
+            outwriters[table].writerow(current_row)
 
 
 # process_file goes over all rows in original csv file, and sends each row to process_row()
