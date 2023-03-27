@@ -48,7 +48,7 @@ def convert_list_to_dict(row_list):
 # splits row into the different csv table files
 def process_row(row):
     row = convert_list_to_dict(row) # each row is a list of string
-    country_table[row['country_code']] = [row[column] for column in country_columns]
+    country_table[row['countrycode']] = [row[column] for column in country_columns]
     university_table[row['iau_id1']] = [row[column] for column in university_columns]
     enrollment_stats_table[(row['iau_id1'], row['year'])] = [row[column] for column in enrollment_stats_columns]
     located_at_table[row['iau_id1']] = [row[column] for column in located_at_columns]
