@@ -22,38 +22,36 @@ columns_in_enrollment_table = {
     15: "year",
     16: "students5_estimated"
 }
-created_tables = {"Country": ["countrycode", "country", "region", "incomegroup"],
-                         "University": ["iau_id1", "eng_name", "orig_name", "foundedyr", "yrclosed", "private01",
-                                        "divisions", "phd_granting", "specialized"],
-                         "Enrollment_stats": ["iau_id1", "year", "students5_estimated"],
-                         "Located_at": ["iau_id1", "countrycode", "latitude", "longitude"]}
+
+country_columns = ["countrycode", "country", "region", "incomegroup"]
+university_columns = ["iau_id1", "eng_name", "orig_name", "foundedyr", "yrclosed", "private01", "divisions",
+                      "phd_granting", "specialized"]
+enrollment_stats_columns = ["iau_id1", "year", "students5_estimated"]
+located_at_columns = ["iau_id1", "countrycode", "latitude", "longitude"]
 
 # opens files.
-outfiles, outwriters, rows_sets = {}, {}, {}
+outfiles, outwriters, sets_of_tables = {}, {}, {}
 for table in all_tables:
     outfiles[table] = open(f"{table}.csv", 'w', encoding='UTF8')
     outwriters[table] = csv.writer(outfiles[table], delimiter=",", quoting=csv.QUOTE_MINIMAL)
-    rows_sets[table] = set()
+
+country_table, university_table, enrollment_stats_table, located_at_table = {}, {}, {}, {}
+
+
+def convert_list_to_dict(row_list):
+    row_dict = {}
+    for column in columns_in_enrollment_table:
+        row_dict[columns_in_enrollment_table[column]] = row_list[column]
+    return row_dict
 
 
 # splits row into the different csv table files
 def process_row(row):
-    # country_dict['']
-    #
-    # country_dict['countrycode'] = [row['country'], row['region'], row['incomegroup']]
-    # university_dict['iau_id1'] =
-    #
-    # country_table = {row['countrycode']: {row['country'], row['region'], row['incomegroup']}}
-
-    is_last_row_of_university = True if row[13] != '' else False
-    for table in created_tables:
-        if table != "Enrollment_stats" and not is_last_row_of_university:
-            continue
-        current_row = [row[col] for col in columns_in_enrollment_table
-                       if columns_in_enrollment_table[col] in created_tables[table]]
-        if current_row not in rows_sets[table]:
-            outwriters[table].writerow(current_row)
-            rows_sets[table].add(current_row)
+    row = convert_list_to_dict(row) # each row is a list of string
+    country_table[row['country_code']] = [row[column] for column in country_columns]
+    university_table[row['iau_id1']] = [row[column] for column in university_columns]
+    enrollment_stats_table[(row['iau_id1'], row['year'])] = [row[column] for column in enrollment_stats_columns]
+    located_at_table[row['iau_id1']] = [row[column] for column in located_at_columns]
 
 
 # process_file goes over all rows in original csv file, and sends each row to process_row()
@@ -62,8 +60,20 @@ def process_file():
         with zf.open(f'enrollment.csv', 'r') as infile:
             reader = csv.reader(TextIOWrapper(infile, 'utf-8'))
             for row in reader:
-                process_row(row)    # each row is a list of string
+                process_row(row)
                 outwriters['enrollment'].writerow(row)
+
+    for row in country_table:
+        outwriters['country'].writerow(row)
+    for row in university_table:
+        outwriters['university'].writerow(row)
+    for row in enrollment_stats_table:
+        outwriters['enrollment_stats'].writerow(row)
+    for row in located_at_table:
+        outwriters['located_at'].writerow(row)
+
+    for table in outwriters:
+        outfiles[table].close()
 
 
 # return the list of all tables
