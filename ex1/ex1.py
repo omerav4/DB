@@ -33,11 +33,18 @@ outfiles, outwriters, rows_sets = {}, {}, {}
 for table in all_tables:
     outfiles[table] = open(f"{table}.csv", 'w', encoding='UTF8')
     outwriters[table] = csv.writer(outfiles[table], delimiter=",", quoting=csv.QUOTE_MINIMAL)
-    rows_sets[table] = {}
+    rows_sets[table] = set()
 
 
 # splits row into the different csv table files
 def process_row(row):
+    # country_dict['']
+    #
+    # country_dict['countrycode'] = [row['country'], row['region'], row['incomegroup']]
+    # university_dict['iau_id1'] =
+    #
+    # country_table = {row['countrycode']: {row['country'], row['region'], row['incomegroup']}}
+
     is_last_row_of_university = True if row[13] != '' else False
     for table in created_tables:
         if table != "Enrollment_stats" and not is_last_row_of_university:
@@ -46,6 +53,7 @@ def process_row(row):
                        if columns_in_enrollment_table[col] in created_tables[table]]
         if current_row not in rows_sets[table]:
             outwriters[table].writerow(current_row)
+            rows_sets[table].add(current_row)
 
 
 # process_file goes over all rows in original csv file, and sends each row to process_row()
@@ -55,7 +63,7 @@ def process_file():
             reader = csv.reader(TextIOWrapper(infile, 'utf-8'))
             for row in reader:
                 process_row(row)    # each row is a list of string
-                enrollment_outwriter['enrollment'].writerow(row)
+                outwriters['enrollment'].writerow(row)
 
 
 # return the list of all tables
