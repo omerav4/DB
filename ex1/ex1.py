@@ -64,13 +64,13 @@ def process_file():
                 outwriters['enrollment'].writerow(row)
 
     for row in country_table:
-        outwriters['Country'].writerow(row)
+        outwriters['Country'].writerow(country_table[row])
     for row in university_table:
-        outwriters['University'].writerow(row)
+        outwriters['University'].writerow(university_table[row])
     for row in enrollment_stats_table:
-        outwriters['Enrollment_stats'].writerow(row)
+        outwriters['Enrollment_stats'].writerow(enrollment_stats_table[row])
     for row in located_at_table:
-        outwriters['Located_at'].writerow(row)
+        outwriters['Located_at'].writerow(located_at_table[row])
 
     for table in outwriters:
         outfiles[table].close()
