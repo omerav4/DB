@@ -2,7 +2,7 @@ import csv
 from io import TextIOWrapper
 from zipfile import ZipFile
 
-all_tables = ["enrollment", "Country", "University", "Enrollment_stats", "Located_at"]
+all_tables = ["Country", "University", "Enrollment_stats", "Located_at", "enrollment"]
 columns_in_enrollment_table = {
     0: "country",
     1: "countrycode",
