@@ -2,7 +2,7 @@ import csv
 from io import TextIOWrapper
 from zipfile import ZipFile
 
-all_tables = ["Country", "University", "Enrollment_stats", "Located_at", "enrollment"]
+all_tables = ["Country", "University", "Enrollment_stats", "enrollment"]
 columns_in_enrollment_table = {
     0: "country",
     1: "countrycode",
@@ -25,9 +25,8 @@ columns_in_enrollment_table = {
 
 country_columns = ["countrycode", "country", "region", "incomegroup"]
 university_columns = ["iau_id1", "eng_name", "orig_name", "foundedyr", "yrclosed", "private01", "divisions",
-                      "phd_granting", "specialized"]
+                      "phd_granting", "specialized", "countrycode", "latitude", "longitude"]
 enrollment_stats_columns = ["iau_id1", "year", "students5_estimated"]
-located_at_columns = ["iau_id1", "countrycode", "latitude", "longitude"]
 
 # opens files.
 outfiles, outwriters, sets_of_tables = {}, {}, {}
@@ -35,7 +34,7 @@ for table in all_tables:
     outfiles[table] = open(f"{table}.csv", 'w', encoding='UTF8')
     outwriters[table] = csv.writer(outfiles[table], delimiter=",", quoting=csv.QUOTE_MINIMAL)
 
-country_table, university_table, enrollment_stats_table, located_at_table = {}, {}, {}, {}
+country_table, university_table, enrollment_stats_table = {}, {}, {}
 
 
 def convert_list_to_dict(row_list):
@@ -51,7 +50,6 @@ def process_row(row):
     country_table[row['countrycode']] = [row[column] for column in country_columns]
     university_table[row['iau_id1']] = [row[column] for column in university_columns]
     enrollment_stats_table[(row['iau_id1'], row['year'])] = [row[column] for column in enrollment_stats_columns]
-    located_at_table[row['iau_id1']] = [row[column] for column in located_at_columns]
 
 
 # process_file goes over all rows in original csv file, and sends each row to process_row()
@@ -69,8 +67,6 @@ def process_file():
         outwriters['University'].writerow(university_table[row])
     for row in enrollment_stats_table:
         outwriters['Enrollment_stats'].writerow(enrollment_stats_table[row])
-    for row in located_at_table:
-        outwriters['Located_at'].writerow(located_at_table[row])
 
     for table in outwriters:
         outfiles[table].close()

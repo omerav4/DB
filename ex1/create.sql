@@ -34,7 +34,10 @@ create table University(
 	private01 varchar,
     phd_granting varchar,
 	divisions varchar,
-	specialized varchar
+	specialized varchar,
+    country_code varchar,
+    latitude varchar,
+	longitude varchar
 );
 
 create table Enrollment_stats(
@@ -43,17 +46,4 @@ create table Enrollment_stats(
 	students5_estimated varchar,
 	primary key (iau_id1, year)
 );
-
-create table Located_at(
-    iau_id1 varchar primary key,
-	country_code varchar,
-    latitude varchar,
-	longitude varchar
-);
-
--- create table University_annual_stats(
---     iau_id1 varchar,
--- 	year varchar,
--- 	primary key (iau_id1, year)
--- );
 
