@@ -28,5 +28,5 @@ create table Enrollment_stats(
     students5_estimated integer,
     primary key(iau_id1, year),
     foreign key(iau_id1)
-    references Universities(iau_id1)
+    references University(iau_id1)
 );
