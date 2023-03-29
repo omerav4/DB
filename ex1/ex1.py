@@ -2,6 +2,7 @@ import csv
 from io import TextIOWrapper
 from zipfile import ZipFile
 
+# omer and omry
 all_tables = ["Country", "University", "Enrollment_stats", "enrollment"]
 columns_in_enrollment_table = {
     0: "country",
