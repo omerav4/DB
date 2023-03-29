@@ -5,7 +5,7 @@ create table Country(
     incomegroup varchar NOT NULL check(incomegroup IN ('High income', 'Low income', 'Lower middle income', 'Upper middle income'))
 );
 
-create table Universities(
+create table University(
     iau_id1 varchar primary key,
     eng_name varchar NOT NULL,
     orig_name varchar NOT NULL,
@@ -22,7 +22,7 @@ create table Universities(
     longitude float
 );
 
-create table enrollment_stats(
+create table Enrollment_stats(
     iau_id1 varchar,
     year integer,
     students5_estimated integer,
