@@ -13,8 +13,8 @@ create table University(
     yrclosed integer,
     check(NULL OR foundedyr <= yrclosed),
     private01 integer check(private01 = 0 OR private01 = 1),
-    phd_granting integer NOT NULL check(phd_granting = 0 OR phd_granting = 1),
     divisions integer,
+    phd_granting integer NOT NULL check(phd_granting = 0 OR phd_granting = 1),
     specialized integer NOT NULL check(specialized = 0 OR specialized = 1),
     countrycode varchar(3) NOT NULL
     references Country(countrycode),
