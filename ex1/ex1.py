@@ -74,7 +74,7 @@ def process_file():
 
 # return the list of all tables
 def get_names():
-    return all_tables
+    return ["Country", "University", "Enrollment_stats"]
 
 
 if __name__ == "__main__":
