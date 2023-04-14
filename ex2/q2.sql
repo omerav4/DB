@@ -1,4 +1,4 @@
-select distinct name, party
+select distinct members.name, memberInKnesset.party
 from members join memberInKnesset on members.uid = memberInKnesset.uid
 where memberInKnesset.number = 1
-order by name, party
+order by members.name, memberInKnesset.party

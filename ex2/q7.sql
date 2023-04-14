@@ -11,4 +11,4 @@ where exists
                                             join memberInKnesset on members.uid = memberInKnesset.uid
                                    where memberInKnesset.number = m1.number)
           )
-order by number, name
+order by memberInKnesset.number, members.name
