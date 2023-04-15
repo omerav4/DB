@@ -10,4 +10,4 @@ where exists
                                        on members3.uid = memberInKnesset3.uid
                                    where memberInKnesset3.number = memberInKnesset1.number)
           )
-order by memberInKnesset1.number, members.name
+order by memberInKnesset1.number, members1.name
