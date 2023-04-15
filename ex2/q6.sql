@@ -18,5 +18,4 @@ where members.name = 'David Ben Gurion' and memberInKnesset.party = 'Mapai'
 except
 select memberInKnesset.number from members members2 join memberInKnesset on members.uid = memberInKnesset.uid
 where members1.name = members2.name and memberInKnesset.party = 'Mapai') >= 0
-order by members1.name
-
+--order by members1.name
