@@ -13,7 +13,7 @@
 select distinct members1.name
 from members members1 join memberInKnesset on members.uid = memberInKnesset.uid
 where count(
-(select memberInKnesset.number from members join memberInKnesset on members.uid = memberInKnesset.uid
+select memberInKnesset.number from members join memberInKnesset on members.uid = memberInKnesset.uid
 where members.name = 'David Ben Gurion' and memberInKnesset.party = 'Mapai'
 except
 select memberInKnesset.number from members members2 join memberInKnesset on members.uid = memberInKnesset.uid
