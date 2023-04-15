@@ -30,4 +30,4 @@ AND mk1.number IN (
   JOIN memberInKnesset mk2 ON members2.uid = mk2.uid
   WHERE members2.name = 'David Ben Gurion'
   AND mk2.party = 'Mapai'
-order by members1.name
+--order by members1.name
