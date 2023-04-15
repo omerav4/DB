@@ -4,7 +4,7 @@ where exists
           (
               select memberInKnesset2.number, members.name
               from members
-                       join memberInKnesset memberInKnesset2 on members.uid = memberInKnesset.uid
+                       join memberInKnesset memberInKnesset2 on members.uid = memberInKnesset2.uid
               where memberInKnesset1.number = memberInKnesset2.number
                 and members.age = (select max(members.age)
                                    from members
