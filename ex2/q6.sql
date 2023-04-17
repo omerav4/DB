@@ -8,3 +8,4 @@ where exists(
   from members members3 join memberInKnesset memberInKnesset3 ON members3.uid = memberInKnesset3.uid
   where members3.name = members1.name and memberInKnesset3.party = 'Mapai'))
 )
+order by members1.name
