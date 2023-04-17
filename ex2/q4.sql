@@ -5,5 +5,5 @@ and members1.name in
 (select members2.name
 from members members2 join memberInKnesset memberInKnesset2 on members2.uid = memberInKnesset2.uid
 where members2.occupation <> 'politician' and members2.gender = 'female' and memberInKnesset2.number = 24)
-order by members1.name
+order by members1.name;
 
