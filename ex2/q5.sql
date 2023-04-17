@@ -7,4 +7,4 @@ where members1.birthPlace = 'Jerusalem' and not exists
     where memberInKnesset2.uid = members1.uid
     and memberInKnesset2.number <> memberInKnesset1.number
     )
-order by members.name
+order by members1.name
