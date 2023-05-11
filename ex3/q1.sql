@@ -1,4 +1,5 @@
-select distinct number, count(*) as partyCount
-from (select distinct number, party from memberInKnesset)
+select distinct number, count(distinct party) as partyCount
+from memberInKnesset
 group by number
 order by number
+
