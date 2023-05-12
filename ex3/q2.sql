@@ -1,8 +1,7 @@
 with membersAge as
-(select members.uid, round(knessets.startYear-members.birthYear) as age
-from members left join memberInKnesset on members.uid = memberInKnesset.uid
-left join knessets on knessets.number = memberInKnesset.number)
+(select members.uid, startYear-birthYear as age
+from members natural join memberInKnesset natural join knessets)
 select memberInKnesset.number, avg(age) as avgAge
-from memberInKnesset left join membersAge on memberInKnesset.uid = membersAge.uid
-group by memberInKnesset.number
-order by memberInKnesset.number;
+from memberInKnesset natural join membersAge
+group by number
+order by number;
