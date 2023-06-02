@@ -5,5 +5,6 @@ with helper as(
 )
 select distinct e1.year, e1.eng_name
 from enrollment e1
-left join helper on e1.year = e2.year and e1.students5_estimated = e2.max_students_estimated
-order by year, eng_name
+left join helper on e1.year = helper.year
+where e1.students5_estimated = helper.max_students_estimated
+order by year, eng_name;
